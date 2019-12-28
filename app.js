@@ -35,25 +35,27 @@ function getRandomPhraseAsArray(){
 
 //PHRASE TO DISPLAY
 
-/////////////////
-//TO NIE DZIAŁA//
-/////////////////
+function addPhraseToDisplay() {
+        const phraseToProcess = getRandomPhraseAsArray()
+        let arrayToDisplay = '';
+    for(let i = 0; i < phraseToProcess.length; i++)  {
+        arrayToDisplay += '<li>' + phraseToProcess[i] + '</li>';
+    }
+    return arrayToDisplay;
+}
+const finalPhrase = document.querySelector('#phrase ul')
+finalPhrase.innerHTML = addPhraseToDisplay();
 
-// function addPhraseToDisplay() {
-    
-//     let arrayToDisplay = '';
-//     for(let i = 0; i < getRandomPhraseAsArray().length; i++)  {
-//     arrayToDisplay += '<li>' + getRandomPhraseAsArray()[i] + '</li>';
-//     }
-//     return arrayToDisplay;
-// }
-// const finalPhrase = document.querySelector('#phrase ul')
-// finalPhrase.textContent = addPhraseToDisplay();
+// ADDING CLASS
 
-/////////////////
-//TO NIE DZIAŁA//
-/////////////////
-
+let phraseLi = document.querySelectorAll('ul li');
+for (let i = 0; i < phraseLi.length; i ++ ){
+    if(phraseLi[i].textContent !== ' '){
+        phraseLi[i].className = 'letter';
+    } else {
+        phraseLi[i].className = 'space';
+    };
+}
 // START BUTTON
 
 const startButton = document.querySelector('#overlay a');
