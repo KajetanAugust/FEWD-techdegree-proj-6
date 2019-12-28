@@ -56,6 +56,7 @@ for (let i = 0; i < phraseLi.length; i ++ ){
         phraseLi[i].className = 'space';
     };
 }
+
 // START BUTTON
 
 const startButton = document.querySelector('#overlay a');
