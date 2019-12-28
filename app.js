@@ -65,26 +65,34 @@ function checkLetter() {
     for (let i = 0; i < phraseLi.length; i ++ ){
         if(phraseLi[i].textContent.toLowerCase().includes(event.target.textContent)){
             phraseLi[i].className = 'letter show';
-            event.target.setAttribute('disabled', '')
-            event.target.style.color = 'lightgrey';
-        }else{
-            event.target.setAttribute('disabled', '')
-            event.target.style.color = 'lightgrey';
+            event.target.setAttribute('class', 'chosen')
+            return phraseLi[i].textContent;
+        } else{
+            event.target.setAttribute('class', 'chosen')
             return null;
-        }
-    }
+        };
+    };
+    
 }
-    keyboard.addEventListener('click', () => {
-        checkLetter()
 
-        if(checkLetter() === null){
-            const hearts = document.querySelectorAll('.tries');
-            const scoreboard = document.querySelector('#scoreboard ol');
-            scoreboard.removeChild(hearts[0]);
-            missed += 1
-            
-        }
-    });
+
+keyboard.addEventListener('click', () => {
+    let letterFound = checkLetter();
+        if (letterFound === null){
+        const hearts = document.querySelectorAll('.tries');
+        const scoreboard = document.querySelector('#scoreboard ol');
+        scoreboard.removeChild(hearts[0]);
+        missed += 1;
+    }
+
+    // if(fail === 'null'){
+    //     const hearts = document.querySelectorAll('.tries');
+    //     const scoreboard = document.querySelector('#scoreboard ol');
+    //     scoreboard.removeChild(hearts[0]);
+    //     missed += 1;
+    //     
+    // } else{}
+});
 
 
 
