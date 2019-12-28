@@ -78,6 +78,7 @@ button {
 /* Phrase */
 
 .letter {
+  font-family: 'Open Sans', sans-serif;
   font-size: var(--font-size-medium);
   height: 65px;
   width: 65px;

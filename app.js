@@ -5,16 +5,16 @@ const phrase = document.getElementById('phrase');
 // ARRAY OF PHRASES
 
 const phrases = [
-    'Right Out of the Gate',
-    'Raining Cats and Dogs',
-    'Shot In the Dark',
-    'Under the Weather',
-    'Go For Broke',
-    'Quick and Dirty',
-    'Everything But The Kitchen Sink',
-    'In a Pickle',
-    'Keep Your Shirt On',
-    'Back to Square One'
+    'right out of the gate',
+    'raining cats and dogs',
+    'shot in the dark',
+    'under the weather',
+    'go for broke',
+    'quick and dirty',
+    'everything but the kitchen sink',
+    'in a pickle',
+    'keep your shirt on',
+    'back to square one'
 ];
 
 
@@ -58,6 +58,40 @@ for (let i = 0; i < phraseLi.length; i ++ ){ // for loop loops through the li el
         phraseLi[i].className = 'space'; // if textContent is a space it gets the class space
     };
 }
+
+// CHECK LETTER FUNCTION
+
+function checkLetter() {
+    for (let i = 0; i < phraseLi.length; i ++ ){
+        if(phraseLi[i].textContent.toLowerCase().includes(event.target.textContent)){
+            phraseLi[i].className = 'letter show';
+            event.target.setAttribute('disabled', '')
+            event.target.style.color = 'lightgrey';
+        }else{
+            event.target.setAttribute('disabled', '')
+            event.target.style.color = 'lightgrey';
+            return null;
+        }
+    }
+}
+    keyboard.addEventListener('click', () => {
+        checkLetter()
+
+        if(checkLetter() === null){
+            const hearts = document.querySelectorAll('.tries');
+            const scoreboard = document.querySelector('#scoreboard ol');
+            scoreboard.removeChild(hearts[0]);
+            missed += 1
+            
+        }
+    });
+
+
+
+
+
+
+    
 
 // START BUTTON
 
