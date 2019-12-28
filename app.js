@@ -66,10 +66,10 @@ function checkLetter() {
         if(phraseLi[i].textContent.toLowerCase().includes(event.target.textContent)){
             phraseLi[i].className = 'letter show';
             event.target.setAttribute('class', 'chosen')
-            return phraseLi[i].textContent;
+            // return phraseLi[i].textContent;
         } else{
             event.target.setAttribute('class', 'chosen')
-            return null;
+            // return null;
         };
     };
     
@@ -78,12 +78,12 @@ function checkLetter() {
 
 keyboard.addEventListener('click', () => {
     let letterFound = checkLetter();
-        if (letterFound === null){
-        const hearts = document.querySelectorAll('.tries');
-        const scoreboard = document.querySelector('#scoreboard ol');
-        scoreboard.removeChild(hearts[0]);
-        missed += 1;
-    }
+    //     if (letterFound === null){
+    //     const hearts = document.querySelectorAll('.tries');
+    //     const scoreboard = document.querySelector('#scoreboard ol');
+    //     scoreboard.removeChild(hearts[0]);
+    //     missed += 1;
+    // }
 
     // if(fail === 'null'){
     //     const hearts = document.querySelectorAll('.tries');
