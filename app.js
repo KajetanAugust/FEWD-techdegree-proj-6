@@ -63,21 +63,33 @@ for (let i = 0; i < phraseLi.length; i ++ ){ // for loop loops through the li el
 
 function checkLetter() {
     for (let i = 0; i < phraseLi.length; i ++ ){
-        if(phraseLi[i].textContent.toLowerCase().includes(event.target.textContent)){
+        if(phraseLi[i].textContent.toLowerCase() === (event.target.textContent)){
             phraseLi[i].className = 'letter show';
-            event.target.setAttribute('class', 'chosen')
-            // return phraseLi[i].textContent;
-        } else{
-            event.target.setAttribute('class', 'chosen')
-            // return null;
+            event.target.setAttribute('class', 'chosen');
+            // return event.target.textContent;
+        }else{
+            event.target.setAttribute('class', 'chosen');
+            const hearts = document.querySelectorAll('.tries');
+            const scoreboard = document.querySelector('#scoreboard ol');
+            scoreboard.removeChild(hearts[0]);
+            missed += 1;
         };
     };
+    // if(){
     
+    // }else{
+        
+    // }
 }
 
 
 keyboard.addEventListener('click', () => {
-    let letterFound = checkLetter();
+    let click = event.target;
+    if(click.tagName === 'BUTTON'){
+    const letterFound = checkLetter();
+    
+    console.log(letterFound);
+    }
     //     if (letterFound === null){
     //     const hearts = document.querySelectorAll('.tries');
     //     const scoreboard = document.querySelector('#scoreboard ol');
@@ -85,13 +97,6 @@ keyboard.addEventListener('click', () => {
     //     missed += 1;
     // }
 
-    // if(fail === 'null'){
-    //     const hearts = document.querySelectorAll('.tries');
-    //     const scoreboard = document.querySelector('#scoreboard ol');
-    //     scoreboard.removeChild(hearts[0]);
-    //     missed += 1;
-    //     
-    // } else{}
 });
 
 
