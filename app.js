@@ -1,6 +1,8 @@
 let missed = 0;
 const keyboard = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
+let letterFound = 'null';
+const hearts = document.querySelectorAll('.tries');
 
 // ARRAY OF PHRASES
 
@@ -60,36 +62,53 @@ for (let i = 0; i < phraseLi.length; i ++ ){ // for loop loops through the li el
 }
 
 // CHECK LETTER FUNCTION
-
+            
 function checkLetter() {
+            
+    
     for (let i = 0; i < phraseLi.length; i ++ ){
         if(phraseLi[i].textContent.toLowerCase() === (event.target.textContent)){
             phraseLi[i].className = 'letter show';
             event.target.setAttribute('class', 'chosen');
-            // return event.target.textContent;
-        }else{
+            event.target.setAttribute('disabled', '')
+            letterFound = event.target.textContent;
+        };
+        if(phraseLi[i].textContent.toLowerCase() !== (event.target.textContent)){
             event.target.setAttribute('class', 'chosen');
-            const hearts = document.querySelectorAll('.tries');
-            const scoreboard = document.querySelector('#scoreboard ol');
-            scoreboard.removeChild(hearts[0]);
-            missed += 1;
+            event.target.setAttribute('disabled', '')
         };
     };
-    // if(){
-    
-    // }else{
-        
-    // }
 }
 
 
 keyboard.addEventListener('click', () => {
     let click = event.target;
     if(click.tagName === 'BUTTON'){
-    const letterFound = checkLetter();
-    
-    console.log(letterFound);
+        checkLetter();
+        console.log(letterFound);
+            if(letterFound === 'null'){
+                missed += 1;
+                hearts[missed - 1].innerHTML = '<img src="images/lostHeart.png" height="35px" width="30px">';
+            }else{
+                letterFound = 'null';
+            }
     }
+    
+
+});
+
+
+    
+
+    
+
+    
+    
+    
+
+    //     for(heartsNum = 0; heartsNum < hearts.length; heartsNum++){
+    //     hearts[i].innerHTML = '<img src="images/lostHeart.png" height="35px" width="30px">'
+    //     }
     //     if (letterFound === null){
     //     const hearts = document.querySelectorAll('.tries');
     //     const scoreboard = document.querySelector('#scoreboard ol');
@@ -97,7 +116,7 @@ keyboard.addEventListener('click', () => {
     //     missed += 1;
     // }
 
-});
+
 
 
 
