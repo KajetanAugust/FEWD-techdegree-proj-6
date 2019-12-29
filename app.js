@@ -32,7 +32,6 @@ function randomPhrase() {
 
 function getRandomPhraseAsArray(){
     const arrayOfLetters = randomPhrase().split('') // the phrase chosen in randomPhrase function is split to array of letters
-    
     return arrayOfLetters; // array of letters is returned
 }
 
@@ -64,8 +63,6 @@ for (let i = 0; i < phraseLi.length; i ++ ){ // for loop loops through the li el
 // CHECK LETTER FUNCTION
             
 function checkLetter() {
-            
-    
     for (let i = 0; i < phraseLi.length; i ++ ){
         if(phraseLi[i].textContent.toLowerCase() === (event.target.textContent)){
             phraseLi[i].className = 'letter show';
@@ -80,6 +77,7 @@ function checkLetter() {
     };
 }
 
+// EVENT LISTENER FOR LETTERS PRESSES
 
 keyboard.addEventListener('click', () => {
     let click = event.target;
@@ -91,39 +89,14 @@ keyboard.addEventListener('click', () => {
                 hearts[missed - 1].innerHTML = '<img src="images/lostHeart.png" height="35px" width="30px">';
             }else{
                 letterFound = 'null';
-            }
+            };
     }
-    
+    if(missed === 5){   // if the all hearts are lost the you loose screen is displayed
+        startScreen.style.display = ''; 
+    }
 
 });
 
-
-    
-
-    
-
-    
-    
-    
-
-    //     for(heartsNum = 0; heartsNum < hearts.length; heartsNum++){
-    //     hearts[i].innerHTML = '<img src="images/lostHeart.png" height="35px" width="30px">'
-    //     }
-    //     if (letterFound === null){
-    //     const hearts = document.querySelectorAll('.tries');
-    //     const scoreboard = document.querySelector('#scoreboard ol');
-    //     scoreboard.removeChild(hearts[0]);
-    //     missed += 1;
-    // }
-
-
-
-
-
-
-
-
-    
 
 // START BUTTON
 
