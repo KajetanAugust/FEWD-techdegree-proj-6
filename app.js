@@ -13,7 +13,7 @@ const phrases = [
     'under the weather',
     'go for broke',
     'quick and dirty',
-    'everything but the kitchen sink',
+    'greased lightning',
     'in a pickle',
     'keep your shirt on',
     'back to square one'
