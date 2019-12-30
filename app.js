@@ -19,7 +19,6 @@ const phrases = [
     'back to square one'
 ];
 
-
 //RANDOM PHRASE GENERATOR
 
 function randomPhrase() {
@@ -35,7 +34,6 @@ function getRandomPhraseAsArray(){
     return arrayOfLetters; // array of letters is returned
 }
 
-
 //PHRASE TO DISPLAY
 
 function addPhraseToDisplay() {
@@ -49,7 +47,7 @@ function addPhraseToDisplay() {
 const finalPhrase = document.querySelector('#phrase ul') // ul is selected
 finalPhrase.innerHTML = addPhraseToDisplay(); // li items are added to the ul inside the .phrases div
 
-// ADDING CLASS
+// ADDING CLASSES
 
 let phraseLi = document.querySelectorAll('ul li'); // li elements are selected
 for (let i = 0; i < phraseLi.length; i ++ ){ // for loop loops through the li elements
