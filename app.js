@@ -3,6 +3,11 @@ const keyboard = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
 let letterFound = 'null';
 const hearts = document.querySelectorAll('.tries');
+const startButton = document.querySelector('#overlay a'); // the start button is selected
+const startScreen = document.getElementById('overlay'); // the start screen overlay is selected
+const header = document.querySelector('h2');
+const letters = document.getElementsByClassName('letter');
+let guesses = document.getElementsByClassName('show');
 
 // ARRAY OF PHRASES
 
@@ -61,19 +66,48 @@ for (let i = 0; i < phraseLi.length; i ++ ){ // for loop loops through the li el
 // CHECK LETTER FUNCTION
             
 function checkLetter() {
-    for (let i = 0; i < phraseLi.length; i ++ ){
-        if(phraseLi[i].textContent.toLowerCase() === (event.target.textContent)){
-            phraseLi[i].className = 'letter show';
-            event.target.setAttribute('class', 'chosen');
-            event.target.setAttribute('disabled', '')
-            letterFound = event.target.textContent;
+    for (let i = 0; i < phraseLi.length; i ++ ){ //for loop loops through the li elements of random phrase choosen earlier
+        if(phraseLi[i].textContent.toLowerCase() === (event.target.textContent)){ //if statement compares clicked button to every letter in the phrase 
+            phraseLi[i].className = 'letter show'; //if the match is found letter gets the class of .show
+            event.target.setAttribute('class', 'chosen'); //the pressed button gets the class of chosen
+            event.target.setAttribute('disabled', ''); //and the button is disabled
+            letterFound = event.target.textContent; //letterFound variable gets value of event.target.textContent
         };
-        if(phraseLi[i].textContent.toLowerCase() !== (event.target.textContent)){
-            event.target.setAttribute('class', 'chosen');
-            event.target.setAttribute('disabled', '')
+        
+        if(phraseLi[i].textContent.toLowerCase() !== (event.target.textContent)){ //if the match is not found
+            event.target.setAttribute('class', 'chosen'); //the pressed button gets the class of chosen
+            event.target.setAttribute('disabled', ''); // and the button is disabled
         };
     };
 }
+
+//CHECK WIN FUNCTION
+function checkWin() {
+    if(missed === 5){   // if the all hearts are lost the you loose screen is displayed
+        startScreen.setAttribute('class', 'lose'); 
+        header.textContent = 'Sorry, try again!';
+        startButton.textContent = 'Play Again';
+        startScreen.style.display = ''; 
+        
+        startButton.addEventListener('click', () => {
+
+            // finalPhrase.innerHTML = addPhraseToDisplay(); // li items are added to the ul inside the .phrases div
+
+            // startScreen.style.display = 'none'; // if the startButton is clicked it changes the display of startScreen to none
+            window.location.reload(true);
+        });
+    };
+    if(letters.length === guesses.length){
+        startScreen.setAttribute('class', 'win'); 
+        header.textContent = 'You Won!';
+        startButton.textContent = 'Play Again!';
+        startScreen.style.display = ''; 
+
+        startButton.addEventListener('click', () => {
+            window.location.reload(true);
+        });
+    };
+};
 
 // EVENT LISTENER FOR LETTERS PRESSES
 
@@ -89,17 +123,12 @@ keyboard.addEventListener('click', () => {
                 letterFound = 'null';
             };
     }
-    if(missed === 5){   // if the all hearts are lost the you loose screen is displayed
-        startScreen.style.display = ''; 
-    }
-
+    checkWin()
 });
 
 
 // START BUTTON
 
-const startButton = document.querySelector('#overlay a'); // the start button is selected
-const startScreen = document.getElementById('overlay'); // the start screen overlay is selected
 startButton.addEventListener('click', () => { // event listener is added to the startButton
     startScreen.style.display = 'none'; // if the startButton is clicked it changes the display of startScreen to none
 });
