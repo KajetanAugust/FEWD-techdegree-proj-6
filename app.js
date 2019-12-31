@@ -27,7 +27,21 @@ const phrases = [
     'greased lightning',
     'in a pickle',
     'keep your shirt on',
-    'back to square one'
+    'back to square one',
+    'hands down',
+    'wild goose chase',
+    'talk the talk',
+    'right off the bat',
+    'on the ropes',
+    'cut the mustard',
+    'know the ropes',
+    'easy as pie',
+    'lovey dovey',
+    'elephant in the room',
+    'son of a gun',
+    'a piece of cake',
+    'under your nose',
+    'eat my hat'
 ];
 
 //RANDOM PHRASE GENERATOR
@@ -49,35 +63,34 @@ function getRandomPhraseAsArray(){
 
 function addPhraseToDisplay() {
     const phraseToProcess = getRandomPhraseAsArray() // getRandomPhraseAsArray function is called and assigned to the const
-    for(let i = 0; i < phraseToProcess.length; i++)  { 
+    for(let i = 0; i < phraseToProcess.length; i++)  { //loops through the letters and creates li elements
         const li = document.createElement('li');
         li.textContent = phraseToProcess[i];
         if (phraseToProcess[i] !== ' ') {
-            li.className = 'letter';
+            li.className = 'letter'; //letters get the class of letter
         } else {
-            li.className = 'space';
+            li.className = 'space'; // spaces get the class of space
         }
-        ul.appendChild(li);
+        ul.appendChild(li); //letters in li are appended to ul
     }
 };
-addPhraseToDisplay();
+addPhraseToDisplay(); //function is called
 
 // CHECK LETTER FUNCTION
             
 const checkLetter = input => {
-    letterFound = false;
-    let key = input.textContent;
-    const phraseLi = document.querySelectorAll('ul li');
-    for (let i = 0; i < phraseLi.length; i += 1) {
-      let letter = phraseLi[i].textContent.toLowerCase();
-      if ( key === letter ) {
-        let match = phraseLi[i];
-        // console.log(match);
-        match.className = 'letter show';
-        letterFound = input.textContent;
+    letterFound = false; //letter found base state is set
+    let key = input.textContent; //text content of input is gathered
+    const phraseLi = document.querySelectorAll('ul li'); //all phrase letters are selected
+    for (let i = 0; i < phraseLi.length; i += 1) {  
+      let letter = phraseLi[i].textContent.toLowerCase(); //letter is gathered
+      if ( key === letter ) { //letter and input key is compared
+        let match = phraseLi[i]; //matched letter is chosen
+        match.className = 'letter show'; //matched letter gets the class of shown and is shown
+        letterFound = input.textContent; //letter found gets text content of input
       }
-      input.setAttribute('class', 'chosen');
-      input.setAttribute('disabled', '');
+      input.setAttribute('class', 'chosen'); //pressed letter key gets class of chosen
+      input.setAttribute('disabled', ''); //pressed letter key is disabled
     }
   }
 
@@ -89,8 +102,8 @@ function checkWin() {
         header.textContent = 'Sorry, try again!';
         startButton.textContent = 'Play Again';
         startScreen.style.display = ''; 
-        startButton.addEventListener('click', () => { // if a 'play again' button is clicked gameReset() function runs
-            gameReset();
+        startButton.addEventListener('click', () => { // if a 'play again' button is clicked 
+            gameReset(); //game reset function is called
         });
     }
     if(letters.length === guesses.length){ // if all letters in a phrase are shown 'You Won!' screen is displayed
@@ -98,20 +111,20 @@ function checkWin() {
         header.textContent = 'You Won!';
         startButton.textContent = 'Play Again!';
         startScreen.style.display = ''; 
-        startButton.addEventListener('click', () => { // if a 'play again' button is clicked gameReset() function runs
-            gameReset();   
+        startButton.addEventListener('click', () => { // if a 'play again' button is clicked 
+            gameReset(); //game reset function is called
         });
     }
 }
 
 //GAME RESET FUNCTION
 
-function gameReset(){
-    let oldPhrase = document.querySelectorAll('ul li');
-    for (let i=0; i<oldPhrase.length; i+=1) {
+function gameReset(){ //
+    let oldPhrase = document.querySelectorAll('ul li'); //old phrase is selected
+    for (let i=0; i<oldPhrase.length; i+=1) { //loop loops through the old phrase and removes all the letters
         ul.removeChild(oldPhrase[i]);
     }
-    addPhraseToDisplay();
+    addPhraseToDisplay(); //the new phrase is added to the display
     for( let i = 0; missed > 0; i++){ //reseting hearts and missed counter
         missed -= 1;
         hearts[missed].innerHTML = '<img src="images/liveHeart.png" height="35px" width="30px">';
@@ -120,28 +133,26 @@ function gameReset(){
         qwertyLetters[i].removeAttribute('class');
         qwertyLetters[i].removeAttribute('disabled')
     }
-    startScreen.setAttribute('class', 'start')
+    startScreen.setAttribute('class', 'start') //start screen gets class 'start'
     startScreen.style.display = 'none'; // if the startButton is clicked it changes the display of startScreen to none
 };
 
 // EVENT LISTENER FOR LETTERS PRESSES
 
-keyboard.addEventListener('click', () => {
+keyboard.addEventListener('click', () => { //event listener listens for clicks 
     let click = event.target;
-    if(click.tagName === 'BUTTON'){
-        checkLetter(click);
-        // console.log(letterFound);
-            if(!letterFound){
-                missed += 1;
-                hearts[missed - 1].innerHTML = '<img src="images/lostHeart.png" height="35px" width="30px">';
+    if(click.tagName === 'BUTTON'){ //if statement checks if click was on the button
+        checkLetter(click); //click is passed to check letter function
+            if(!letterFound){ //if letter is not found 
+                missed += 1; //one point is added to missed variable
+                hearts[missed - 1].innerHTML = '<img src="images/lostHeart.png" height="35px" width="30px">'; //one heart is lost
             }
     }
-    checkWin();
+    setTimeout('checkWin()', 7000); //checkWin function is called with timeout
 });
 
 // START BUTTON
 
 startButton.addEventListener('click', () => { // event listener is added to the startButton
-    
     startScreen.style.display = 'none'; // if the startButton is clicked it changes the display of startScreen to none
 });
