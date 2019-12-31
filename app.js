@@ -12,6 +12,7 @@ const startScreen = document.getElementById('overlay'); // the start screen over
 const header = document.querySelector('h2');
 const letters = document.getElementsByClassName('letter');
 let guesses = document.getElementsByClassName('show');
+startButton.style.fontFamily = "'Open Sans', sans-serif";
 
 
 // ARRAY OF PHRASES
@@ -92,6 +93,7 @@ function checkWin() {
     if(missed === 5){   // if the all hearts are lost the you loose screen is displayed
         startScreen.setAttribute('class', 'lose'); 
         header.textContent = 'Sorry, try again!';
+        
         startButton.textContent = 'Play Again';
         startScreen.style.display = ''; 
         
