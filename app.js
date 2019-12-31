@@ -119,7 +119,6 @@ function checkWin() {
 //GAME RESET FUNCTION
 
 function gameReset(){
-    // ul.innerHTML = '';
     addPhraseToDisplay();
     let phraseLi = document.querySelectorAll('ul li'); // li elements are selected
     for (let i = 0; i < phraseLi.length; i ++ ){ // for loop loops through the li elements
