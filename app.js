@@ -1,3 +1,6 @@
+
+//VARIABLES
+
 let missed = 0;
 const keyboard = document.getElementById('qwerty');
 const qwertyLetters = document.getElementsByTagName('button')
@@ -121,7 +124,7 @@ function gameReset(){
             phraseLi[i].className = 'space'; // if textContent is a space it gets the class space
         };
     };
-    for( let i = 0; missed > 0; i++){ //reseting hearts
+    for( let i = 0; missed > 0; i++){ //reseting hearts and missed counter
         missed -= 1;
         hearts[missed].innerHTML = '<img src="images/liveHeart.png" height="35px" width="30px">';
     };
