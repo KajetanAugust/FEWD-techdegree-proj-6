@@ -1,6 +1,7 @@
 let missed = 0;
 const keyboard = document.getElementById('qwerty');
-const phrase = document.getElementById('phrase');
+const qwertyLetters = document.getElementsByTagName('button')
+let phrase = document.getElementById('phrase');
 let letterFound = 'null';
 const hearts = document.querySelectorAll('.tries');
 const startButton = document.querySelector('#overlay a'); // the start button is selected
@@ -8,6 +9,7 @@ const startScreen = document.getElementById('overlay'); // the start screen over
 const header = document.querySelector('h2');
 const letters = document.getElementsByClassName('letter');
 let guesses = document.getElementsByClassName('show');
+
 
 // ARRAY OF PHRASES
 
@@ -37,7 +39,7 @@ function randomPhrase() {
 function getRandomPhraseAsArray(){
     const arrayOfLetters = randomPhrase().split('') // the phrase chosen in randomPhrase function is split to array of letters
     return arrayOfLetters; // array of letters is returned
-}
+};
 
 //PHRASE TO DISPLAY
 
@@ -48,12 +50,13 @@ function addPhraseToDisplay() {
         arrayToDisplay += '<li>' + phraseToProcess[i] + '</li>'; // for loop loops through the array and puts every element in li tag
     }
     return arrayToDisplay;
-}
+    
+};
 const finalPhrase = document.querySelector('#phrase ul') // ul is selected
 finalPhrase.innerHTML = addPhraseToDisplay(); // li items are added to the ul inside the .phrases div
 
-// ADDING CLASSES
 
+// ADDING CLASSES
 let phraseLi = document.querySelectorAll('ul li'); // li elements are selected
 for (let i = 0; i < phraseLi.length; i ++ ){ // for loop loops through the li elements
     if(phraseLi[i].textContent !== ' '){ // if statement checks if textContent of li elements is not a space
@@ -61,8 +64,7 @@ for (let i = 0; i < phraseLi.length; i ++ ){ // for loop loops through the li el
     } else {
         phraseLi[i].className = 'space'; // if textContent is a space it gets the class space
     };
-}
-
+};
 // CHECK LETTER FUNCTION
             
 function checkLetter() {
@@ -89,28 +91,50 @@ function checkWin() {
         startButton.textContent = 'Play Again';
         startScreen.style.display = ''; 
         
-        startButton.addEventListener('click', () => {
-
-            // finalPhrase.innerHTML = addPhraseToDisplay(); // li items are added to the ul inside the .phrases div
-
-            // startScreen.style.display = 'none'; // if the startButton is clicked it changes the display of startScreen to none
-            window.location.reload(true);
+        startButton.addEventListener('click', () => { // if a 'play again' button is clicked gameReset() function runs
+            gameReset()
+           
         });
     };
-    if(letters.length === guesses.length){
+    if(letters.length === guesses.length){ // if all letters in a phrase are shown 'You Won!' screen is displayed
         startScreen.setAttribute('class', 'win'); 
         header.textContent = 'You Won!';
         startButton.textContent = 'Play Again!';
         startScreen.style.display = ''; 
 
-        startButton.addEventListener('click', () => {
-            window.location.reload(true);
+        startButton.addEventListener('click', () => { // if a 'play again' button is clicked gameReset() function runs
+            gameReset()   
         });
     };
 };
 
-// EVENT LISTENER FOR LETTERS PRESSES
+//RESETING GAMEBOARD
+function gameReset(){
+    finalPhrase.innerHTML = addPhraseToDisplay(); // li items are added to the ul inside the .phrases div
+    let phraseLi = document.querySelectorAll('ul li'); // li elements are selected
+    for (let i = 0; i < phraseLi.length; i ++ ){ // for loop loops through the li elements
+        if(phraseLi[i].textContent !== ' '){ // if statement checks if textContent of li elements is not a space
+            phraseLi[i].setAttribute('class' ,'letter'); // if textContent is not a space it gets the class 'letter'
+        } else {
+            phraseLi[i].className = 'space'; // if textContent is a space it gets the class space
+        };
+    };
+    for( let i = 0; missed > 0; i++){ //reseting hearts
+        missed -= 1;
+        hearts[missed].innerHTML = '<img src="images/liveHeart.png" height="35px" width="30px">';
+    };
 
+    for(let i = 0; qwertyLetters.length > i; i++){  //reseting keyboard
+        qwertyLetters[i].removeAttribute('class');
+        qwertyLetters[i].removeAttribute('disabled')
+    }
+    startScreen.setAttribute('class', 'start')
+    startScreen.style.display = 'none'; // if the startButton is clicked it changes the display of startScreen to none
+};
+
+
+
+// EVENT LISTENER FOR LETTERS PRESSES
 keyboard.addEventListener('click', () => {
     let click = event.target;
     if(click.tagName === 'BUTTON'){
