@@ -13,7 +13,7 @@ const header = document.querySelector('h2');
 const letters = document.getElementsByClassName('letter');
 let guesses = document.getElementsByClassName('show');
 startButton.style.fontFamily = "'Open Sans', sans-serif";
-const ul = document.querySelector('#phrase ul');
+const ul = phrase.querySelector('ul');
 
 // ARRAY OF PHRASES
 
