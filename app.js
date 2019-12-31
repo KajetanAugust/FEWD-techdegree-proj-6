@@ -84,6 +84,7 @@ function checkLetter() {
 }
 
 //CHECK WIN FUNCTION
+
 function checkWin() {
     if(missed === 5){   // if the all hearts are lost the you loose screen is displayed
         startScreen.setAttribute('class', 'lose'); 
@@ -108,7 +109,8 @@ function checkWin() {
     };
 };
 
-//RESETING GAMEBOARD
+//GAME RESET FUNCTION
+
 function gameReset(){
     finalPhrase.innerHTML = addPhraseToDisplay(); // li items are added to the ul inside the .phrases div
     let phraseLi = document.querySelectorAll('ul li'); // li elements are selected
