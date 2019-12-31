@@ -100,7 +100,7 @@ function checkWin() {
     if(missed === 5){   // if the all hearts are lost the you loose screen is displayed
         startScreen.setAttribute('class', 'lose'); 
         header.textContent = 'Sorry, try again!';
-        startButton.textContent = 'Play Again';
+        startButton.textContent = 'Play Again!';
         startScreen.style.display = ''; 
         startButton.addEventListener('click', () => { // if a 'play again' button is clicked 
             gameReset(); //game reset function is called
