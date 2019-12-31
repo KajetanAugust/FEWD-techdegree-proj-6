@@ -3,7 +3,7 @@
 
 let missed = 0;
 const keyboard = document.getElementById('qwerty');
-const qwertyLetters = document.getElementsByTagName('button')
+const qwertyLetters = document.getElementsByTagName('button');
 let phrase = document.getElementById('phrase');
 let letterFound = 'null';
 const hearts = document.querySelectorAll('.tries');
@@ -13,7 +13,6 @@ const header = document.querySelector('h2');
 const letters = document.getElementsByClassName('letter');
 let guesses = document.getElementsByClassName('show');
 startButton.style.fontFamily = "'Open Sans', sans-serif";
-
 
 // ARRAY OF PHRASES
 
@@ -36,39 +35,40 @@ function randomPhrase() {
     const highest = (phrases.length); // Const contains the highest number for draw
     const draw = Math.floor( Math.random() * highest); // Math.random draws the random number from 0 to const highest
     return phrases[draw]; // the array item is returned
-};
+}
 
 //CREATING ARRAY OF LETTERS
 
 function getRandomPhraseAsArray(){
-    const arrayOfLetters = randomPhrase().split('') // the phrase chosen in randomPhrase function is split to array of letters
+    const arrayOfLetters = randomPhrase().split(''); // the phrase chosen in randomPhrase function is split to array of letters
     return arrayOfLetters; // array of letters is returned
-};
+}
 
 //PHRASE TO DISPLAY
 
 function addPhraseToDisplay() {
-        const phraseToProcess = getRandomPhraseAsArray() // getRandomPhraseAsArray function is called and assigned to the const
+        const phraseToProcess = getRandomPhraseAsArray(); // getRandomPhraseAsArray function is called and assigned to the const
         let arrayToDisplay = ''; // empty variable for li items
     for(let i = 0; i < phraseToProcess.length; i++)  { 
         arrayToDisplay += '<li>' + phraseToProcess[i] + '</li>'; // for loop loops through the array and puts every element in li tag
     }
     return arrayToDisplay;
     
-};
-const finalPhrase = document.querySelector('#phrase ul') // ul is selected
+}
+const finalPhrase = document.querySelector('#phrase ul'); // ul is selected
 finalPhrase.innerHTML = addPhraseToDisplay(); // li items are added to the ul inside the .phrases div
 
-
 // ADDING CLASSES
+
 let phraseLi = document.querySelectorAll('ul li'); // li elements are selected
 for (let i = 0; i < phraseLi.length; i ++ ){ // for loop loops through the li elements
     if(phraseLi[i].textContent !== ' '){ // if statement checks if textContent of li elements is not a space
         phraseLi[i].className = 'letter'; // if textContent is not a space it gets the class 'letter'
     } else {
         phraseLi[i].className = 'space'; // if textContent is a space it gets the class space
-    };
-};
+    }
+}
+
 // CHECK LETTER FUNCTION
             
 function checkLetter() {
@@ -78,13 +78,13 @@ function checkLetter() {
             event.target.setAttribute('class', 'chosen'); //the pressed button gets the class of chosen
             event.target.setAttribute('disabled', ''); //and the button is disabled
             letterFound = event.target.textContent; //letterFound variable gets value of event.target.textContent
-        };
+        }
         
         if(phraseLi[i].textContent.toLowerCase() !== (event.target.textContent)){ //if the match is not found
             event.target.setAttribute('class', 'chosen'); //the pressed button gets the class of chosen
             event.target.setAttribute('disabled', ''); // and the button is disabled
-        };
-    };
+        }
+    }
 }
 
 //CHECK WIN FUNCTION
@@ -98,10 +98,10 @@ function checkWin() {
         startScreen.style.display = ''; 
         
         startButton.addEventListener('click', () => { // if a 'play again' button is clicked gameReset() function runs
-            gameReset()
+            gameReset();
            
         });
-    };
+    }
     if(letters.length === guesses.length){ // if all letters in a phrase are shown 'You Won!' screen is displayed
         startScreen.setAttribute('class', 'win'); 
         header.textContent = 'You Won!';
@@ -109,10 +109,10 @@ function checkWin() {
         startScreen.style.display = ''; 
 
         startButton.addEventListener('click', () => { // if a 'play again' button is clicked gameReset() function runs
-            gameReset()   
+            gameReset();   
         });
-    };
-};
+    }
+}
 
 //GAME RESET FUNCTION
 
@@ -124,24 +124,23 @@ function gameReset(){
             phraseLi[i].setAttribute('class' ,'letter'); // if textContent is not a space it gets the class 'letter'
         } else {
             phraseLi[i].className = 'space'; // if textContent is a space it gets the class space
-        };
-    };
+        }
+    }
     for( let i = 0; missed > 0; i++){ //reseting hearts and missed counter
         missed -= 1;
         hearts[missed].innerHTML = '<img src="images/liveHeart.png" height="35px" width="30px">';
-    };
+    }
 
     for(let i = 0; qwertyLetters.length > i; i++){  //reseting keyboard
         qwertyLetters[i].removeAttribute('class');
-        qwertyLetters[i].removeAttribute('disabled')
+        qwertyLetters[i].removeAttribute('disabled');
     }
-    startScreen.setAttribute('class', 'start')
+    startScreen.setAttribute('class', 'start');
     startScreen.style.display = 'none'; // if the startButton is clicked it changes the display of startScreen to none
-};
-
-
+}
 
 // EVENT LISTENER FOR LETTERS PRESSES
+
 keyboard.addEventListener('click', () => {
     let click = event.target;
     if(click.tagName === 'BUTTON'){
@@ -152,11 +151,10 @@ keyboard.addEventListener('click', () => {
                 hearts[missed - 1].innerHTML = '<img src="images/lostHeart.png" height="35px" width="30px">';
             }else{
                 letterFound = 'null';
-            };
+            }
     }
-    checkWin()
+    checkWin();
 });
-
 
 // START BUTTON
 
