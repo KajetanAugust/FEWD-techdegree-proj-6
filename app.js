@@ -62,36 +62,24 @@ function addPhraseToDisplay() {
 };
 addPhraseToDisplay();
 
-// // ADDING CLASSES
-
-let phraseLi = document.querySelectorAll('ul li'); // li elements are selected
-// for (let i = 0; i < phraseLi.length; i ++ ){ // for loop loops through the li elements
-//     if(phraseLi[i].textContent !== ' '){ // if statement checks if textContent of li elements is not a space
-//         phraseLi[i].className = 'letter'; // if textContent is not a space it gets the class 'letter'
-//     } else {
-//         phraseLi[i].className = 'space'; // if textContent is a space it gets the class space
-//     }
-// }
-
 // CHECK LETTER FUNCTION
             
-// function checkLetter() {
-    const checkLetter = input => {
-        letterFound = false;
-        let key = input.textContent;
-        for (let i = 0; i < phraseLi.length; i += 1) {
-          let letter = phraseLi[i].textContent.toLowerCase();
-          if ( key === letter ) {
-            let match = phraseLi[i];
-            console.log(match);
-            match.className = 'letter show';
-            letterFound = input.textContent;
-          }
-          input.setAttribute('class', 'chosen');
-          input.setAttribute('disabled', '');
-        }
+const checkLetter = input => {
+    letterFound = false;
+    let key = input.textContent;
+    const phraseLi = document.querySelectorAll('ul li');
+    for (let i = 0; i < phraseLi.length; i += 1) {
+      let letter = phraseLi[i].textContent.toLowerCase();
+      if ( key === letter ) {
+        let match = phraseLi[i];
+        // console.log(match);
+        match.className = 'letter show';
+        letterFound = input.textContent;
       }
-// }
+      input.setAttribute('class', 'chosen');
+      input.setAttribute('disabled', '');
+    }
+  }
 
 //CHECK WIN FUNCTION
 
@@ -99,13 +87,10 @@ function checkWin() {
     if(missed === 5){   // if the all hearts are lost the you loose screen is displayed
         startScreen.setAttribute('class', 'lose'); 
         header.textContent = 'Sorry, try again!';
-        
         startButton.textContent = 'Play Again';
         startScreen.style.display = ''; 
-        
         startButton.addEventListener('click', () => { // if a 'play again' button is clicked gameReset() function runs
             gameReset();
-           
         });
     }
     if(letters.length === guesses.length){ // if all letters in a phrase are shown 'You Won!' screen is displayed
@@ -113,7 +98,6 @@ function checkWin() {
         header.textContent = 'You Won!';
         startButton.textContent = 'Play Again!';
         startScreen.style.display = ''; 
-
         startButton.addEventListener('click', () => { // if a 'play again' button is clicked gameReset() function runs
             gameReset();   
         });
@@ -146,7 +130,7 @@ keyboard.addEventListener('click', () => {
     let click = event.target;
     if(click.tagName === 'BUTTON'){
         checkLetter(click);
-        console.log(letterFound);
+        // console.log(letterFound);
             if(!letterFound){
                 missed += 1;
                 hearts[missed - 1].innerHTML = '<img src="images/lostHeart.png" height="35px" width="30px">';
