@@ -49,45 +49,49 @@ function getRandomPhraseAsArray(){
 
 function addPhraseToDisplay() {
     const phraseToProcess = getRandomPhraseAsArray() // getRandomPhraseAsArray function is called and assigned to the const
-for(let i = 0; i < phraseToProcess.length; i++)  { 
-    const li = document.createElement('li');
-    li.textContent = phraseToProcess[i];
-    ul.appendChild(li);
-}
+    for(let i = 0; i < phraseToProcess.length; i++)  { 
+        const li = document.createElement('li');
+        li.textContent = phraseToProcess[i];
+        if (phraseToProcess[i] !== ' ') {
+            li.className = 'letter';
+        } else {
+            li.className = 'space';
+        }
+        ul.appendChild(li);
+    }
 };
 addPhraseToDisplay();
 
-// ADDING CLASSES
+// // ADDING CLASSES
 
 let phraseLi = document.querySelectorAll('ul li'); // li elements are selected
-for (let i = 0; i < phraseLi.length; i ++ ){ // for loop loops through the li elements
-    if(phraseLi[i].textContent !== ' '){ // if statement checks if textContent of li elements is not a space
-        phraseLi[i].className = 'letter'; // if textContent is not a space it gets the class 'letter'
-    } else {
-        phraseLi[i].className = 'space'; // if textContent is a space it gets the class space
-    }
-}
+// for (let i = 0; i < phraseLi.length; i ++ ){ // for loop loops through the li elements
+//     if(phraseLi[i].textContent !== ' '){ // if statement checks if textContent of li elements is not a space
+//         phraseLi[i].className = 'letter'; // if textContent is not a space it gets the class 'letter'
+//     } else {
+//         phraseLi[i].className = 'space'; // if textContent is a space it gets the class space
+//     }
+// }
 
 // CHECK LETTER FUNCTION
             
-function checkLetter() {
-    letterFound = false;
-    let key = event.target.textContent;
-  
-    for (let i = 0; i < phraseLi.length; i ++ ){ //for loop loops through the li elements of random phrase choosen earlier
-        if(phraseLi[i].textContent.toLowerCase() === (event.target.textContent)){ //if statement compares clicked button to every letter in the phrase 
-            phraseLi[i].className = 'letter show'; //if the match is found letter gets the class of .show
-            event.target.setAttribute('class', 'chosen'); //the pressed button gets the class of chosen
-            event.target.setAttribute('disabled', ''); //and the button is disabled
-            letterFound = event.target.textContent; //letterFound variable gets value of event.target.textContent
+// function checkLetter() {
+    const checkLetter = input => {
+        letterFound = false;
+        let key = input.textContent;
+        for (let i = 0; i < phraseLi.length; i += 1) {
+          let letter = phraseLi[i].textContent.toLowerCase();
+          if ( key === letter ) {
+            let match = phraseLi[i];
+            console.log(match);
+            match.className = 'letter show';
+            letterFound = input.textContent;
+          }
+          input.setAttribute('class', 'chosen');
+          input.setAttribute('disabled', '');
         }
-        
-        if(phraseLi[i].textContent.toLowerCase() !== (event.target.textContent)){ //if the match is not found
-            event.target.setAttribute('class', 'chosen'); //the pressed button gets the class of chosen
-            event.target.setAttribute('disabled', ''); // and the button is disabled
-        }
-    }
-}
+      }
+// }
 
 //CHECK WIN FUNCTION
 
@@ -119,15 +123,11 @@ function checkWin() {
 //GAME RESET FUNCTION
 
 function gameReset(){
+    let oldPhrase = document.querySelectorAll('ul li');
+    for (let i=0; i<oldPhrase.length; i+=1) {
+        ul.removeChild(oldPhrase[i]);
+    }
     addPhraseToDisplay();
-    let phraseLi = document.querySelectorAll('ul li'); // li elements are selected
-    for (let i = 0; i < phraseLi.length; i ++ ){ // for loop loops through the li elements
-        if(phraseLi[i].textContent !== ' '){ // if statement checks if textContent of li elements is not a space
-            phraseLi[i].setAttribute('class' ,'letter'); // if textContent is not a space it gets the class 'letter'
-        } else {
-            phraseLi[i].className = 'space'; // if textContent is a space it gets the class space
-        };
-    };
     for( let i = 0; missed > 0; i++){ //reseting hearts and missed counter
         missed -= 1;
         hearts[missed].innerHTML = '<img src="images/liveHeart.png" height="35px" width="30px">';
