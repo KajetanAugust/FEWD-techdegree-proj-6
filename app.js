@@ -13,6 +13,7 @@ const header = document.querySelector('h2');
 const letters = document.getElementsByClassName('letter');
 let guesses = document.getElementsByClassName('show');
 startButton.style.fontFamily = "'Open Sans', sans-serif";
+const ul = document.querySelector('#phrase ul');
 
 // ARRAY OF PHRASES
 
@@ -47,16 +48,14 @@ function getRandomPhraseAsArray(){
 //PHRASE TO DISPLAY
 
 function addPhraseToDisplay() {
-        const phraseToProcess = getRandomPhraseAsArray(); // getRandomPhraseAsArray function is called and assigned to the const
-        let arrayToDisplay = ''; // empty variable for li items
-    for(let i = 0; i < phraseToProcess.length; i++)  { 
-        arrayToDisplay += '<li>' + phraseToProcess[i] + '</li>'; // for loop loops through the array and puts every element in li tag
-    }
-    return arrayToDisplay;
-    
+    const phraseToProcess = getRandomPhraseAsArray() // getRandomPhraseAsArray function is called and assigned to the const
+for(let i = 0; i < phraseToProcess.length; i++)  { 
+    const li = document.createElement('li');
+    li.textContent = phraseToProcess[i];
+    ul.appendChild(li);
 }
-const finalPhrase = document.querySelector('#phrase ul'); // ul is selected
-finalPhrase.innerHTML = addPhraseToDisplay(); // li items are added to the ul inside the .phrases div
+};
+addPhraseToDisplay();
 
 // ADDING CLASSES
 
@@ -72,6 +71,9 @@ for (let i = 0; i < phraseLi.length; i ++ ){ // for loop loops through the li el
 // CHECK LETTER FUNCTION
             
 function checkLetter() {
+    letterFound = false;
+    let key = event.target.textContent;
+  
     for (let i = 0; i < phraseLi.length; i ++ ){ //for loop loops through the li elements of random phrase choosen earlier
         if(phraseLi[i].textContent.toLowerCase() === (event.target.textContent)){ //if statement compares clicked button to every letter in the phrase 
             phraseLi[i].className = 'letter show'; //if the match is found letter gets the class of .show
@@ -117,40 +119,38 @@ function checkWin() {
 //GAME RESET FUNCTION
 
 function gameReset(){
-    finalPhrase.innerHTML = addPhraseToDisplay(); // li items are added to the ul inside the .phrases div
+    // ul.innerHTML = '';
+    addPhraseToDisplay();
     let phraseLi = document.querySelectorAll('ul li'); // li elements are selected
     for (let i = 0; i < phraseLi.length; i ++ ){ // for loop loops through the li elements
         if(phraseLi[i].textContent !== ' '){ // if statement checks if textContent of li elements is not a space
             phraseLi[i].setAttribute('class' ,'letter'); // if textContent is not a space it gets the class 'letter'
         } else {
             phraseLi[i].className = 'space'; // if textContent is a space it gets the class space
-        }
-    }
+        };
+    };
     for( let i = 0; missed > 0; i++){ //reseting hearts and missed counter
         missed -= 1;
         hearts[missed].innerHTML = '<img src="images/liveHeart.png" height="35px" width="30px">';
-    }
-
+    };
     for(let i = 0; qwertyLetters.length > i; i++){  //reseting keyboard
         qwertyLetters[i].removeAttribute('class');
-        qwertyLetters[i].removeAttribute('disabled');
+        qwertyLetters[i].removeAttribute('disabled')
     }
-    startScreen.setAttribute('class', 'start');
+    startScreen.setAttribute('class', 'start')
     startScreen.style.display = 'none'; // if the startButton is clicked it changes the display of startScreen to none
-}
+};
 
 // EVENT LISTENER FOR LETTERS PRESSES
 
 keyboard.addEventListener('click', () => {
     let click = event.target;
     if(click.tagName === 'BUTTON'){
-        checkLetter();
+        checkLetter(click);
         console.log(letterFound);
-            if(letterFound === 'null'){
+            if(!letterFound){
                 missed += 1;
                 hearts[missed - 1].innerHTML = '<img src="images/lostHeart.png" height="35px" width="30px">';
-            }else{
-                letterFound = 'null';
             }
     }
     checkWin();
@@ -159,5 +159,6 @@ keyboard.addEventListener('click', () => {
 // START BUTTON
 
 startButton.addEventListener('click', () => { // event listener is added to the startButton
+    
     startScreen.style.display = 'none'; // if the startButton is clicked it changes the display of startScreen to none
 });
