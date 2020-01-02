@@ -148,7 +148,7 @@ keyboard.addEventListener('click', () => { //event listener listens for clicks
                 hearts[missed - 1].innerHTML = '<img src="images/lostHeart.png" height="35px" width="30px">'; //one heart is lost
             }
     }
-    setTimeout('checkWin()', 7000); //checkWin function is called with timeout
+    setTimeout('checkWin()', 3000); //checkWin function is called with timeout
 });
 
 // START BUTTON
